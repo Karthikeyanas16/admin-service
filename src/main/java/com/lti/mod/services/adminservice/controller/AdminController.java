@@ -1,15 +1,12 @@
 package com.lti.mod.services.adminservice.controller;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.lti.mod.services.adminservice.model.Technology;
 import com.lti.mod.services.adminservice.model.User;
@@ -20,7 +17,26 @@ public class AdminController {
 
 	@Autowired
 	AdminService adminService;
-	
+
+	@RequestMapping(value = "/courses", method = RequestMethod.GET)
+	public ResponseEntity<?> findAllCourses() {
+		System.out.println("Admin service ####");
+		return new ResponseEntity<>(adminService.findAll(), HttpStatus.OK);
+	}
+
+	@GetMapping("/users")
+	public ResponseEntity<?> findAllUsers() {
+		System.out.println("Search All Users ####");
+		List<User> users = adminService.findAllUsers();
+		return new ResponseEntity<>(users, HttpStatus.OK);
+	}
+
+	@GetMapping("/mentors")
+	public ResponseEntity<?> findAllMentors() {
+		System.out.println("Search All Mentors ####");
+		List<User> users = adminService.findAllMentors();
+		return new ResponseEntity<>(users, HttpStatus.OK);
+	}
 	
 	@PostMapping("/course/create")
     public ResponseEntity<?> createCourse(@RequestBody Technology technology) {

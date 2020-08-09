@@ -64,7 +64,7 @@ public class AdminServiceImpl implements AdminService{
 		return userRepo.save(user);
 	}
 	@Override
-	public void deleteUser(BigInteger id) {
+	public void deleteUser(Long id) {
 		userRepo.deleteById(id);
 	}
 

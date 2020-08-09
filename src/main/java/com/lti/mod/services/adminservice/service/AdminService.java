@@ -12,7 +12,7 @@ public interface AdminService {
 	Object createTechnology(Technology technology);
 	void deleteCourse(Long parseLong);
 	Object createUser(User user);
-	void deleteUser(BigInteger id);
+	void deleteUser(Long id);
 	List<User> findAllUsers();
 	List<User> findAllMentors();
 }

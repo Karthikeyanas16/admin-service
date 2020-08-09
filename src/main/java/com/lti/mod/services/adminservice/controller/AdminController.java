@@ -8,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.lti.mod.services.adminservice.model.Enrollment;
 import com.lti.mod.services.adminservice.model.Technology;
 import com.lti.mod.services.adminservice.model.User;
+import com.lti.mod.services.adminservice.proxy.EnrollementProxy;
 import com.lti.mod.services.adminservice.service.AdminService;
 
 @RestController
@@ -17,6 +19,9 @@ public class AdminController {
 
 	@Autowired
 	AdminService adminService;
+	
+	@Autowired
+	EnrollementProxy enrollementProxy;
 
 	@RequestMapping(value = "/courses", method = RequestMethod.GET)
 	public ResponseEntity<?> findAllCourses() {
@@ -58,12 +63,16 @@ public class AdminController {
 	 */
 	
 	@GetMapping("/user/delete/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable BigInteger id) {
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
 		System.out.println("### Inside delete user");
 		adminService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 	
-	
-	
+	@GetMapping("/enrollments")
+	 public ResponseEntity<?> getAllProposals() {
+	   System.out.println("### Inside getAllProposals");
+	   List<Enrollment> enrollments= enrollementProxy.getAllEnrollments();
+	   return new ResponseEntity<>(enrollments, HttpStatus.ACCEPTED);
+	 }
 }

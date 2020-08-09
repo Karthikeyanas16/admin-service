@@ -19,6 +19,8 @@ public interface UserRepository extends JpaRepository<User, BigInteger> {
    @Query(value = "SELECT * from User e where e.role =:role", nativeQuery = true)
     List<User> findMentors(@Param("role") String role);
 
+    void deleteById(Long id);
+
   //  @Query(value = "select t.id,t.technology, t.description,t.Status,t.Fees, c.name,c.id,c.email,c.role,c.status"
      //       +" from Technology t join User c on t.id = c.technology_id where c.role = 'mentor'" ,nativeQuery = true)
    // List findMentors();

@@ -1,7 +1,5 @@
 package com.lti.mod.services.adminservice.model;
 
-import javax.persistence.Transient;
-
 public class Enrollment {
 	
     private Long id;
@@ -11,6 +9,7 @@ public class Enrollment {
     private Long proposalAmount;
     private String proposalStatus;
     private String username;
+    private String mentorname;
     private String technology;
 
     
@@ -94,6 +93,16 @@ public class Enrollment {
 
 	public void setTechnology(String technology) {
 		this.technology = technology;
+	}
+
+
+	public String getMentorname() {
+		return mentorname;
+	}
+
+
+	public void setMentorname(String mentorname) {
+		this.mentorname = mentorname;
 	}
 
 	

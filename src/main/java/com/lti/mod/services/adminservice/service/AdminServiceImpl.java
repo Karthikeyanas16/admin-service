@@ -7,15 +7,17 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import com.lti.mod.services.adminservice.model.TechnologyDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lti.mod.services.adminservice.model.Technology;
+import com.lti.mod.services.adminservice.model.TechnologyDto;
 import com.lti.mod.services.adminservice.model.User;
+import com.lti.mod.services.adminservice.repository.SearchRepository;
 import com.lti.mod.services.adminservice.repository.TechnologyRepository;
 import com.lti.mod.services.adminservice.repository.UserRepository;
-import com.lti.mod.services.adminservice.repository.SearchRepository;
+
+import javassist.NotFoundException;
 @Service
 @Transactional
 public class AdminServiceImpl implements AdminService{
@@ -60,8 +62,15 @@ public class AdminServiceImpl implements AdminService{
 		techRepo.deleteById(parseLong);
 	}
 	@Override
-	public Object createUser(User user) {
-		return userRepo.save(user);
+	public Object createUser(User user) throws NotFoundException {
+		User userDetails = userRepo.findByEmail(user.getEmail());
+		if(userDetails == null)
+			throw new NotFoundException("User is not valid");
+		else {
+			userDetails.setName(user.getName());
+			userDetails.setStatus(user.getStatus());
+			return userRepo.save(userDetails);
+		}
 	}
 	@Override
 	public void deleteUser(Long id) {
